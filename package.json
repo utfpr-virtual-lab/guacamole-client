@@ -1,0 +1,42 @@
+{
+  "name": "guacamole-client",
+  "version": "1.5.3",
+  "description": "Guacamole client-side JavaScript library",
+  "type": "module",
+  "main": "dist/cjs/guacamole-common.js",
+  "module": "dist/esm/guacamole-common.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/guacamole-common.js",
+      "require": "./dist/cjs/guacamole-common.js"
+    }
+  },
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm:concat": "cat guacamole-common-js/src/main/webapp/modules/*.js > dist/esm/guacamole-common.js",
+    "build:esm:append": "echo 'export default Guacamole;' >> dist/esm/guacamole-common.js",
+    "build:esm:minify": "minify dist/esm/guacamole-common.js --js > dist/esm/guacamole-common.min.js",
+    "build:esm": "npm run build:esm:concat && npm run build:esm:append && npm run build:esm:minify",
+    "build:cjs:concat": "cat guacamole-common-js/src/main/webapp/modules/*.js > dist/cjs/guacamole-common.js",
+    "build:cjs:append": "echo 'module.exports = Guacamole;' >> dist/cjs/guacamole-common.js",
+    "build:cjs:minify": "minify dist/cjs/guacamole-common.js > dist/cjs/guacamole-common.min.js",
+    "build:cjs": "npm run build:cjs:concat && npm run build:cjs:append && npm run build:cjs:minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utfpr-virtual-lab/guacamole-client.git"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Otávio Baziewicz Filho",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/GUACAMOLE/"
+  },
+  "homepage": "https://github.com/utfpr-virtual-lab/guacamole-client",
+  "devDependencies": {
+    "minify": "9.2"
+  }
+}
